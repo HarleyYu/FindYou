@@ -1,16 +1,89 @@
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.foxnickel.findyou.fragment.ControlFragment">
+    tools:context="cn.foxnickel.findyou.fragment.ControlFragment"
+    android:background="@drawable/background"
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/text_controlled"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/control_mode"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24dp"/>
+        android:text="@string/controlled_phone"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:padding="8dp"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/edit_text_phone"
+        android:inputType="phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_controlled_phone"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:padding="8dp"
+        android:background="@drawable/edit_text_border"/>
+
+    <Button
+        android:id="@+id/bt_call_sms_monitor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:textSize="16sp"
+        android:text="开启来电、短信监控"
+        android:drawableLeft="@drawable/ic_sms_monitor_white_24dp"/>
+
+    <Button
+        android:id="@+id/bt_position_monitor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:text="定位监控"
+        android:drawableLeft="@drawable/ic_position_white_24dp"/>
+
+    <Button
+        android:id="@+id/bt_reacll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:text="回拨电话"
+        android:drawableLeft="@drawable/ic_recall_white_24dp"/>
+
+    <Button
+        android:id="@+id/bt_play_music"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_weight="1"
+        android:text="播放铃音"
+        android:drawableLeft="@drawable/ic_play_white_24dp"/>
+
+    <Button
+        android:id="@+id/bt_vibration"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:text="手机振动"
+        android:drawableLeft="@drawable/ic_vibration_white_24dp"/>
+
+</LinearLayout>

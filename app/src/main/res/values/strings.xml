@@ -7,5 +7,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="controlled_phone">请输入被控手机号码</string>
+    <string name="input_controlled_phone">被控手机号码</string>
 
 </resources>
