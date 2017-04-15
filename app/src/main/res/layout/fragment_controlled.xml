@@ -1,16 +1,322 @@
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.foxnickel.findyou.fragment.ControlledFragment">
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context="cn.foxnickel.findyou.fragment.ControlFragment">
 
     <TextView
+        android:id="@+id/text_controlled"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/be_controlled"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24dp"/>
+        android:padding="8dp"
+        android:text="请输入主控手机号码"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/edit_text_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="输入主控手机号码"
+        android:inputType="phone"
+        android:padding="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="24dp"
+        android:layout_weight="1"
+        android:background="@drawable/edit_text_border"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_sms_black"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_sms_monitor_black_24dp"/>
+
+            <TextView
+                android:id="@+id/tv_sms_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/iv_sms_black"
+                android:layout_marginLeft="8dp"
+                android:layout_toEndOf="@id/iv_sms_black"
+                android:layout_toRightOf="@id/iv_sms_black"
+                android:text="短信监控"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/iv_sms_black"
+                android:layout_alignLeft="@id/tv_sms_monitor"
+                android:layout_alignStart="@id/tv_sms_monitor"
+                android:text="将收到短信内容及发件人转发到主控手机"/>
+
+            <Switch
+                android:id="@+id/switch_sms_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_call_black"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_call_black_24dp"/>
+
+            <TextView
+                android:id="@+id/tv_call_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/iv_call_black"
+                android:layout_marginLeft="8dp"
+                android:layout_toEndOf="@id/iv_call_black"
+                android:layout_toRightOf="@id/iv_call_black"
+                android:text="来电监控"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/iv_call_black"
+                android:layout_alignLeft="@id/tv_call_monitor"
+                android:layout_alignStart="@id/tv_call_monitor"
+                android:text="将呼入电话号码发送到主控手机"/>
+
+            <Switch
+                android:id="@+id/switch_call_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_position_black"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_position_black_24dp"/>
+
+            <TextView
+                android:id="@+id/tv_position_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/iv_position_black"
+                android:layout_marginLeft="8dp"
+                android:layout_toEndOf="@id/iv_position_black"
+                android:layout_toRightOf="@id/iv_position_black"
+                android:text="位置监控"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/iv_position_black"
+                android:layout_alignLeft="@id/tv_position_monitor"
+                android:layout_alignStart="@id/tv_position_monitor"
+                android:text="将当前位置发送到主控手机"/>
+
+            <Switch
+                android:id="@+id/switch_position_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_recall_black"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_recall_black_24dp"/>
+
+            <TextView
+                android:id="@+id/tv_recall_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/iv_recall_black"
+                android:layout_marginLeft="8dp"
+                android:layout_toEndOf="@id/iv_recall_black"
+                android:layout_toRightOf="@id/iv_recall_black"
+                android:text="回电监控"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/iv_recall_black"
+                android:layout_alignLeft="@id/tv_recall_monitor"
+                android:layout_alignStart="@id/tv_recall_monitor"
+                android:text="控制被控手机拨打电话到主控手机"/>
+
+            <Switch
+                android:id="@+id/switch_recall_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_vibration_black"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_vibration_black_24dp"/>
+
+            <TextView
+                android:id="@+id/tv_vibration_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/iv_vibration_black"
+                android:layout_marginLeft="8dp"
+                android:layout_toEndOf="@id/iv_vibration_black"
+                android:layout_toRightOf="@id/iv_vibration_black"
+                android:text="控制振动"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/iv_vibration_black"
+                android:layout_alignLeft="@id/tv_vibration_monitor"
+                android:layout_alignStart="@id/tv_vibration_monitor"
+                android:text="控制被控手机振动"/>
+
+            <Switch
+                android:id="@+id/switch_vibration_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_ringtone_black"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_play_black_24dp"/>
+
+            <TextView
+                android:id="@+id/tv_ringtone_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/iv_ringtone_black"
+                android:layout_marginLeft="8dp"
+                android:layout_toEndOf="@id/iv_ringtone_black"
+                android:layout_toRightOf="@id/iv_ringtone_black"
+                android:text="控制铃音"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/iv_ringtone_black"
+                android:layout_alignLeft="@id/tv_ringtone_monitor"
+                android:layout_alignStart="@id/tv_ringtone_monitor"
+                android:text="控制被控手机铃音"/>
+
+            <Switch
+                android:id="@+id/switch_ringtone_monitor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="24dp">
+
+        <Button
+            android:id="@+id/bt_start_monitor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:text="开始监控"
+            android:background="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/bt_stop_monitor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="24dp"
+            android:layout_weight="1"
+            android:text="停止监控"
+            android:background="@color/colorAccent"/>
+
+    </LinearLayout>
+
+</LinearLayout>
