@@ -1,5 +1,9 @@
 package cn.foxnickel.findyou;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -19,6 +24,8 @@ import cn.foxnickel.findyou.fragment.ControlledFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int REQUEST_PERMISSIONS = 100;
+    private final String TAG = getClass().getSimpleName();
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -30,6 +37,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*6.0以上申请权限*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermission(Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE);
+        } else {
+
+        }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -47,6 +61,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mTitleText = (TextView) findViewById(R.id.toolbar_title);
 
         setDefaultFragment();
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private Boolean requestPermission(String... permissions) {
+        for (String permission : permissions) {
+            switch (checkSelfPermission(permission)) {
+                case PackageManager.PERMISSION_GRANTED:
+                    Log.i(TAG, "onCreate: Granted...");
+                    break;
+                case PackageManager.PERMISSION_DENIED:
+                    Log.i(TAG, "onCreate: Denied...");
+                    requestPermissions(permissions, REQUEST_PERMISSIONS);//请求权限
+                    break;
+            }
+        }
+        return false;
     }
 
     private void setDefaultFragment() {
