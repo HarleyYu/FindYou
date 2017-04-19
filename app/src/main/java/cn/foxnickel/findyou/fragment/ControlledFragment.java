@@ -1,6 +1,7 @@
 package cn.foxnickel.findyou.fragment;
 
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import cn.foxnickel.findyou.R;
 import cn.foxnickel.findyou.receiver.SmsReceiver;
+import cn.foxnickel.findyou.service.CallMonitorService;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -94,9 +96,9 @@ public class ControlledFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        String controllNumber = "";
+        String controlNumber = "";
         if (!TextUtils.equals(mControlNumberText.getText().toString(), "")) {
-            controllNumber = mControlNumberText.getText().toString();
+            controlNumber = mControlNumberText.getText().toString();
         } else {
             Toast.makeText(getContext(), "请输入主控手机号", Toast.LENGTH_SHORT).show();
             return;
@@ -105,10 +107,17 @@ public class ControlledFragment extends Fragment implements View.OnClickListener
             case R.id.bt_start_monitor:
                 Toast.makeText(getContext(), "开始监控", Toast.LENGTH_SHORT).show();
                 setMonitorItem();
+                /*短信监控*/
                 IntentFilter receiveFilter = new IntentFilter();
                 receiveFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
-                mSmsReceiver = new SmsReceiver(controllNumber);
+                mSmsReceiver = new SmsReceiver(controlNumber);
                 getActivity().registerReceiver(mSmsReceiver, receiveFilter);
+                /*来电监控*/
+                if (preferences.getBoolean("call", false)) {
+                    Intent intent = new Intent(getActivity(), CallMonitorService.class);
+                    intent.putExtra("controlNumber", controlNumber);
+                    getActivity().startService(intent);
+                }
                 break;
             case R.id.bt_stop_monitor:
                 Toast.makeText(getContext(), "停止监控", Toast.LENGTH_SHORT).show();
