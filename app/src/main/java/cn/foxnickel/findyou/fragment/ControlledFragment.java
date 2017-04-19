@@ -76,15 +76,6 @@ public class ControlledFragment extends Fragment implements View.OnClickListener
         editor.commit();
     }
 
-    /*private void getData() {
-        Log.i(TAG, "getData: sms=" + preferences.getBoolean("sms", false));
-        Log.i(TAG, "getData: call=" + preferences.getBoolean("call", false));
-        Log.i(TAG, "getData: position=" + preferences.getBoolean("position", false));
-        Log.i(TAG, "getData: recall=" + preferences.getBoolean("recall", false));
-        Log.i(TAG, "getData: ring=" + preferences.getBoolean("ring", false));
-        Log.i(TAG, "getData: vibration=" + preferences.getBoolean("vibration", false));
-    }*/
-
     private void setDefaultMonitorState() {
         mSwitchSmsMonitor.setChecked(preferences.getBoolean("sms", false));
         mSwitchCallMonitor.setChecked(preferences.getBoolean("call", false));

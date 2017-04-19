@@ -80,6 +80,7 @@ public class ControlFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bt_position_monitor:
                 Toast.makeText(getContext(), "获取到的对方的位置信息将会以短信的形式发送到手机", Toast.LENGTH_SHORT).show();
+                smsManager.sendTextMessage(controlledNumber, null, "position", null, null);
                 break;
             case R.id.bt_play_music:
                 Toast.makeText(getContext(), "成功使对方手机播放铃音", Toast.LENGTH_SHORT).show();

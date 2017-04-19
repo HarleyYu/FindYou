@@ -32,6 +32,7 @@ public class SmsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.i(TAG, "onReceive: start");
         mPreferences = context.getSharedPreferences("monitor_item", Context.MODE_PRIVATE);
         /*获取收到的短信*/
         Bundle bundle = intent.getExtras();
