@@ -70,10 +70,9 @@ public class ControlFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getContext(), "请输入被控手机号", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        SmsManager smsManager = SmsManager.getDefault();
         switch (v.getId()) {
             case R.id.bt_reacll:
-                SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(controlledNumber, null, "recall", null, null);
                 break;
             case R.id.bt_call_sms_monitor:
@@ -84,9 +83,11 @@ public class ControlFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bt_play_music:
                 Toast.makeText(getContext(), "成功使对方手机播放铃音", Toast.LENGTH_SHORT).show();
+                smsManager.sendTextMessage(controlledNumber, null, "ring", null, null);
                 break;
             case R.id.bt_vibration:
                 Toast.makeText(getContext(), "成功使对方手机振动", Toast.LENGTH_SHORT).show();
+                smsManager.sendTextMessage(controlledNumber, null, "vibration", null, null);
                 break;
             default:
                 break;

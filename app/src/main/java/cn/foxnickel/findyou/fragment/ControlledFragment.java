@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,14 +74,14 @@ public class ControlledFragment extends Fragment implements View.OnClickListener
         editor.commit();
     }
 
-    private void getData() {
+    /*private void getData() {
         Log.i(TAG, "getData: sms=" + preferences.getBoolean("sms", false));
         Log.i(TAG, "getData: call=" + preferences.getBoolean("call", false));
         Log.i(TAG, "getData: position=" + preferences.getBoolean("position", false));
         Log.i(TAG, "getData: recall=" + preferences.getBoolean("recall", false));
         Log.i(TAG, "getData: ring=" + preferences.getBoolean("ring", false));
         Log.i(TAG, "getData: vibration=" + preferences.getBoolean("vibration", false));
-    }
+    }*/
 
     private void setDefaultMonitorState() {
         mSwitchSmsMonitor.setChecked(preferences.getBoolean("sms", false));
@@ -113,16 +112,10 @@ public class ControlledFragment extends Fragment implements View.OnClickListener
                 break;
             case R.id.bt_stop_monitor:
                 Toast.makeText(getContext(), "停止监控", Toast.LENGTH_SHORT).show();
-                getData();
+                getActivity().unregisterReceiver(mSmsReceiver);
                 break;
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().unregisterReceiver(mSmsReceiver);
     }
 }
