@@ -1,4 +1,6 @@
-package cn.foxnickel.findyou.receiver;
+package cn.foxnickel.findyou.Receiver.SmsReceiver;
+
+import android.content.BroadcastReceiver;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
