@@ -15,9 +15,18 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.jakewharton.rxbinding2.widget.RxTextView;
+
+import java.util.concurrent.TimeUnit;
+
 import cn.foxnickel.findyou.R;
-import cn.foxnickel.findyou.receiver.SmsReceiver;
+import cn.foxnickel.findyou.Receiver.SmsReceiver.SmsReceiver;
 import cn.foxnickel.findyou.service.CallMonitorService;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -46,7 +55,30 @@ public class ControlledFragment extends Fragment implements View.OnClickListener
         mRootView = inflater.inflate(R.layout.fragment_controlled, container, false);
         preferences = getActivity().getSharedPreferences("monitor_item", MODE_PRIVATE);
         initView();
+        RxTextView.textChanges(mControlNumberText).debounce(500, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CharSequence>() {
+
+                    @Override
+                    public void accept(@NonNull CharSequence charSequence) throws Exception {
+                        String mobiles = String.valueOf(charSequence);
+                        Boolean b = checkPhoneNum(mobiles);
+                        if (!b && !mobiles.isEmpty() && !mobiles.equals(""))
+                            mControlNumberText.setError("您输入的密码有误");
+                    }
+                });
         return mRootView;
+    }
+
+    private Boolean checkPhoneNum(String mobiles) {
+        String telRegex = "[1][358]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+        if (TextUtils.isEmpty(mobiles)) {
+            return false;
+        } else {
+            if (!mobiles.matches(telRegex)) {
+                return false;
+            } else return true;
+        }
     }
 
     private void initView() {
