@@ -12,7 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.jakewharton.rxbinding2.widget.RxTextView;
+
+import java.util.concurrent.TimeUnit;
+
 import cn.foxnickel.findyou.R;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +36,6 @@ public class ControlFragment extends Fragment implements View.OnClickListener {
     private Button btPlayMusic;
     private Button btVibration;
     private final String TAG = getClass().getSimpleName();
-
     public ControlFragment() {
         // Required empty public constructor
     }
@@ -38,7 +46,30 @@ public class ControlFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_control, container, false);
         initView();
+        RxTextView.textChanges(mControlledNumberText).debounce(500, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<CharSequence>() {
+
+                    @Override
+                    public void accept(@NonNull CharSequence charSequence) throws Exception {
+                        String mobiles = String.valueOf(charSequence);
+                        Boolean b = checkPhoneNum(mobiles);
+                        if (!b && !mobiles.isEmpty() && !mobiles.equals(""))
+                            mControlledNumberText.setError("您输入的密码有误");
+                    }
+                });
         return mRootView;
+    }
+
+    private Boolean checkPhoneNum(String mobiles) {
+        String telRegex = "[1][358]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+        if (TextUtils.isEmpty(mobiles)) {
+            return false;
+        } else {
+            if (!mobiles.matches(telRegex)) {
+                return false;
+            } else return true;
+        }
     }
 
     private void initView() {
@@ -95,3 +126,5 @@ public class ControlFragment extends Fragment implements View.OnClickListener {
         }
     }
 }
+
+
