@@ -1,7 +1,5 @@
 package cn.foxnickel.findyou.Receiver.SmsReceiver;
 
-import android.content.BroadcastReceiver;
-
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,6 +16,11 @@ import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+
 import java.io.IOException;
 
 public class SmsReceiver extends BroadcastReceiver {
@@ -26,7 +29,8 @@ public class SmsReceiver extends BroadcastReceiver {
     private StringBuilder content;//内容
     private final String TAG = getClass().getSimpleName();
     private String controlNumber;
-    SharedPreferences mPreferences;
+    private SharedPreferences mPreferences;
+    private LocationClient mLocationClient;
 
     public SmsReceiver(String controlNumber) {
         this.controlNumber = controlNumber;
@@ -52,7 +56,7 @@ public class SmsReceiver extends BroadcastReceiver {
         if (!TextUtils.isEmpty(address) && !TextUtils.equals(content.toString(), "")) {
             Log.i(TAG, "onReceive: address=" + address + " content= " + content);
             Log.i(TAG, "onReceive: controlNumber: " + controlNumber);
-            Log.i(TAG, "onReceive: recall: " + mPreferences.getBoolean("recall", false));
+            Log.i(TAG, "onReceive: position: " + mPreferences.getBoolean("position", false));
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
@@ -71,6 +75,8 @@ public class SmsReceiver extends BroadcastReceiver {
             } else if (TextUtils.equals(address, controlNumber) && TextUtils.equals(content.toString(), "vibration") && mPreferences.getBoolean("vibration", false)) {
                 Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(1000);
+            } else if (TextUtils.equals(address, controlNumber) && TextUtils.equals(content.toString(), "position") && mPreferences.getBoolean("position", false)) {
+                requestPosition(context);
             }
             if (mPreferences.getBoolean("sms", false)) {
                 SmsManager smsManager = SmsManager.getDefault();
@@ -78,6 +84,38 @@ public class SmsReceiver extends BroadcastReceiver {
             }
         } else {
             Log.i(TAG, "onReceive: 短信数据为空");
+        }
+
+    }
+
+    public void requestPosition(Context context) {
+        mLocationClient = new LocationClient(context);
+        mLocationClient.registerLocationListener(new MyLocationListener());
+
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setIsNeedAddress(true);
+        mLocationClient.setLocOption(option);
+
+        mLocationClient.start();
+    }
+
+    public class MyLocationListener implements BDLocationListener {
+        private StringBuilder mStringBuilder;
+        private final String TAG = getClass().getSimpleName();
+
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            mStringBuilder = new StringBuilder();
+            mStringBuilder.append(bdLocation.getAddrStr());//获取当前位置信息
+            Log.i(TAG, "onReceiveLocation: addr: " + mStringBuilder.toString());
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(controlNumber, null, "His/Her position is " + mStringBuilder.toString(), null, null);
+        }
+
+        @Override
+        public void onConnectHotSpotMessage(String s, int i) {
+
         }
 
     }

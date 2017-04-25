@@ -40,9 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /*6.0以上申请权限*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermission(Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE);
-        } else {
-
+            requestPermission(Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION);
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,7 +59,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mTitleText = (TextView) findViewById(R.id.toolbar_title);
 
         setDefaultFragment();
+
     }
+
 
     @TargetApi(Build.VERSION_CODES.M)
     private Boolean requestPermission(String... permissions) {

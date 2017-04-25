@@ -20,7 +20,6 @@ import cn.foxnickel.findyou.R;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -36,6 +35,7 @@ public class ControlFragment extends Fragment implements View.OnClickListener {
     private Button btPlayMusic;
     private Button btVibration;
     private final String TAG = getClass().getSimpleName();
+
     public ControlFragment() {
         // Required empty public constructor
     }
@@ -55,7 +55,7 @@ public class ControlFragment extends Fragment implements View.OnClickListener {
                         String mobiles = String.valueOf(charSequence);
                         Boolean b = checkPhoneNum(mobiles);
                         if (!b && !mobiles.isEmpty() && !mobiles.equals(""))
-                            mControlledNumberText.setError("您输入的密码有误");
+                            mControlledNumberText.setError("您输入的手机号有误");
                     }
                 });
         return mRootView;
@@ -125,6 +125,7 @@ public class ControlFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
 }
 
 

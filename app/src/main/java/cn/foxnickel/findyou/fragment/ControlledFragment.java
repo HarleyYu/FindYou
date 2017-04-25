@@ -25,7 +25,6 @@ import cn.foxnickel.findyou.service.CallMonitorService;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -64,7 +63,7 @@ public class ControlledFragment extends Fragment implements View.OnClickListener
                         String mobiles = String.valueOf(charSequence);
                         Boolean b = checkPhoneNum(mobiles);
                         if (!b && !mobiles.isEmpty() && !mobiles.equals(""))
-                            mControlNumberText.setError("您输入的密码有误");
+                            mControlNumberText.setError("您输入的手机号有误");
                     }
                 });
         return mRootView;
