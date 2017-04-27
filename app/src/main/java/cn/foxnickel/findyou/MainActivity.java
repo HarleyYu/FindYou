@@ -24,6 +24,7 @@ import cn.foxnickel.findyou.fragment.ControlledFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
     private static final int REQUEST_PERMISSIONS = 100;
     private final String TAG = getClass().getSimpleName();
     private Toolbar mToolbar;
